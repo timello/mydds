@@ -1,0 +1,5 @@
+aws_account_id: ""
+aws_region: "eu-central-1"
+bucket_name: "terraform-tfstate-myaccount-account_id-eu-central-1"
+role_name: "terraformAutomationRole"
+aws_environment: "myenv"

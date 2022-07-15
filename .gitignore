@@ -15,3 +15,10 @@
 vendor/
 
 bin/
+
+# Contains sensitive information about the environment like AWS account id
+deploy/aws/terragrunt-live/*/*/common_vars.yml
+
+# terraform/terragrunt
+.terragrunt-cache
+.terraform.lock.hcl
