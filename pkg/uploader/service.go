@@ -14,3 +14,13 @@ type Service interface {
 type service struct {
 	Nodes []types.Node
 }
+
+func (s *service) Upload(obj types.Object) string {
+	return ""
+}
+
+func NewService(nodes []types.Node) Service {
+	return &service{
+		Nodes: nodes,
+	}
+}
