@@ -10,4 +10,6 @@ inputs = {
   public_subnets        = ["10.10.1.0/24", "10.10.3.0/24"]
   environment           = "dev"
   enable_nat_gateway    = true
+  enable_dns_hostnames  = true
+  enable_dns_support    = true
 }
