@@ -1,0 +1,17 @@
+name: Deploy myDDS
+
+on:
+  push:
+    branches: [ develop ]
+
+jobs:
+  build:
+    name: go test
+    runs-on: golang:1.17
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: run tests
+        run: |
+          make test
