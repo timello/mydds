@@ -11,9 +11,22 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
+
       - uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-region: eu-central-1
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID_DEV }}:role/terraformOIDECRDeployerRole
+          role-session-name: terraformOIDECRDeployerRole
+
+      - run: aws sts get-caller-identity
 
       - name: Run a one-line script
         run: make test
