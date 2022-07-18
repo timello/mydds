@@ -13,4 +13,4 @@ docker-build:
 	@docker image build -f deploy/dockerfiles/uploader.Dockerfile -t ${REGISTRY}/uploader:${IMAGE_TAG} -t ${REGISTRY}/uploader:latest .
 
 docker-push:
-	@docker image push ${REGISTRY}/uploader
+	@docker image push ${REGISTRY}/uploader --all-tags
