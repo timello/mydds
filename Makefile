@@ -11,3 +11,6 @@ clean:
 
 docker-build:
 	@docker image build -f deploy/dockerfiles/uploader.Dockerfile -t mydds/uploader:latest .
+
+docker-push:
+	@docker image push ${REGISTRY}/${REPOSITORY}-uploader:${IMAGE_TAG}
