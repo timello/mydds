@@ -10,7 +10,7 @@ clean:
 	@rm -f bin/*
 
 docker-build:
-	@docker image build -f deploy/dockerfiles/uploader.Dockerfile -t mydds/uploader:latest .
+	@docker image build -f deploy/dockerfiles/uploader.Dockerfile -t ${REGISTRY}/${REPOSITORY}-uploader:${IMAGE_TAG} .
 
 docker-push:
 	@docker image push ${REGISTRY}/${REPOSITORY}-uploader:${IMAGE_TAG}
