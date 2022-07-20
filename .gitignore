@@ -22,3 +22,13 @@ deploy/aws/terragrunt-live/*/*/common_vars.yml
 # terraform/terragrunt
 .terragrunt-cache
 .terraform.lock.hcl
+
+# k8s manifests
+deploy/aws-load-balancer-controller-service-account.yaml
+deploy/service.yml
+deploy/ingress.yml
+deploy/deployment.yml
+
+# others
+deploy/load-balancer-role-trust-policy.json
+deploy/iam_policy.json

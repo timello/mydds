@@ -15,6 +15,9 @@ module "eks" {
   cluster_name    = var.cluster_name
   cluster_version = local.cluster_version
 
+  cluster_endpoint_private_access = true
+  cluster_endpoint_public_access  = true
+
   cluster_addons = {
     # Note: https://docs.aws.amazon.com/eks/latest/userguide/fargate-getting-started.html#fargate-gs-coredns
     coredns = {
@@ -39,7 +42,7 @@ module "eks" {
     default = {
       desired_size   = 1
       instance_types = ["t3.large"]
-      capacity_type  = "SPOT"
+      capacity_type  = "ON_DEMAND"
     }
   }
 
@@ -69,6 +72,20 @@ module "eks" {
         create = "20m"
         delete = "20m"
       }
+    }
+  }
+}
+
+module "load_balancer_controller_irsa_role" {
+  source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+
+  role_name                              = "load-balancer-controller"
+  attach_load_balancer_controller_policy = true
+
+  oidc_providers = {
+    ex = {
+      provider_arn               = module.eks.oidc_provider_arn
+      namespace_service_accounts = ["kube-system:aws-load-balancer-controller"]
     }
   }
 }

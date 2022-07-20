@@ -26,3 +26,17 @@ Run commands
 ```
 kubectl get pods --kubeconfig ~/.kube/config
 ```
+
+### AWS Load Balancer Controller
+
+https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html
+
+### Troubleshooting
+
+```
+kubectl run -n YOUR_NAMESPACE troubleshoot -it --rm --image=amazonlinux -- /bin/bash
+```
+
+### TODO
+
+* Narrow down security groups permissions
