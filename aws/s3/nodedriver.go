@@ -11,12 +11,17 @@ import (
 	"github.com/timello/mydds/pkg/types"
 )
 
-type NodeDriver struct {
-	bucketName string
-	client     *s3.Client
+type S3API interface {
+	GetObject(ctx context.Context, params *s3.GetObjectInput, optFns ...func(*s3.Options)) (*s3.GetObjectOutput, error)
+	PutObject(ctx context.Context, params *s3.PutObjectInput, optFns ...func(*s3.Options)) (*s3.PutObjectOutput, error)
 }
 
-func NewNodeDriver(client *s3.Client, bucketName string) types.NodeDriver {
+type NodeDriver struct {
+	bucketName string
+	client     S3API
+}
+
+func NewNodeDriver(client S3API, bucketName string) types.NodeDriver {
 	return &NodeDriver{
 		client:     client,
 		bucketName: bucketName,
