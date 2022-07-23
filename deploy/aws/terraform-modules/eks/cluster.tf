@@ -79,13 +79,37 @@ module "eks" {
 module "load_balancer_controller_irsa_role" {
   source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
 
-  role_name                              = "load-balancer-controller"
+  role_name                              = "AmazonEKSLoadBalancerControllerRole"
   attach_load_balancer_controller_policy = true
 
   oidc_providers = {
     ex = {
       provider_arn               = module.eks.oidc_provider_arn
       namespace_service_accounts = ["kube-system:aws-load-balancer-controller"]
+    }
+  }
+}
+
+provider "kubernetes" {
+  config_path    = "~/.kube/config"
+  config_context = "arn:aws:eks:eu-central-1:415270538324:cluster/myDDS"
+}
+
+resource "kubernetes_manifest" "aws_lb_controller_sa" {
+  provider = kubernetes
+  manifest = {
+    apiVersion = "v1"
+    kind       = "ServiceAccount"
+    metadata = {
+      labels = {
+        "app.kubernetes.io/component" = "controller"
+        "app.kubernetes.io/name"      = "aws-load-balancer-controller"
+      }
+      name      = "aws-load-balancer-controller"
+      namespace = "kube-system"
+      annotations = {
+        "eks.amazonaws.com/role-arn" = module.load_balancer_controller_irsa_role.iam_role_arn
+      }
     }
   }
 }
