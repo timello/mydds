@@ -41,7 +41,7 @@ resource "aws_ecr_lifecycle_policy" "expire_untagged_images" {
 EOF
 
   depends_on = [
-    "aws_ecr_repository.uploader",
-    "aws_ecr_repository.retriever",
+    aws_ecr_repository.uploader,
+    aws_ecr_repository.retriever,
   ]
 }
