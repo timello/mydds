@@ -1,6 +1,6 @@
 provider "kubernetes" {
   config_path    = "~/.kube/config"
-  config_context = "arn:aws:eks:eu-central-1:${local.aws_account_id}:cluster/myDDS"
+  config_context = "arn:aws:eks:eu-central-1:${local.aws_account_id}:cluster/${var.cluster_name}"
 }
 
 resource "kubernetes_manifest" "aws_lb_controller_sa" {

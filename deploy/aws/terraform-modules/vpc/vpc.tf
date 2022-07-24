@@ -41,11 +41,13 @@ module "vpc" {
   }
 
   public_subnet_tags = {
-    Tier = "public"
+    Tier                     = "public"
+    "kubernetes.io/role/elb" = 1
   }
 
   private_subnet_tags = {
-    Tier = "private"
+    Tier                              = "private"
+    "kubernetes.io/role/internal-elb" = 1
   }
 }
 
